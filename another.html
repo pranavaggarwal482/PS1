@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Career & Skill Development Advisor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-bg: linear-gradient(135deg, #232526, #414345);
+      --card-bg: #fff;
+      --accent: #6c63ff;
+      --accent-light: #e0e7ff;
+      --header-bg: #232526;
+      --footer-bg: #232526;
+      --text-main: #232526;
+      --text-light: #6c63ff;
+      --border-radius: 18px;
+      --shadow: 0 4px 32px rgba(44, 62, 80, 0.12);
+      --transition: 0.2s cubic-bezier(.4,0,.2,1);
+    }
+
+    html {
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background: var(--primary-bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--header-bg);
+      padding: 1.5rem 0;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #6c63ff, #48c6ef);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 2.5rem 2rem;
+      border-radius: var(--border-radius);
+      max-width: 480px;
+      width: 100%;
+      box-shadow: var(--shadow);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+      border: 1px solid var(--accent-light);
+    }
+
+    .card:focus-within,
+    .card:hover {
+      box-shadow: 0 8px 40px rgba(108, 99, 255, 0.18);
+      transform: translateY(-4px) scale(1.01);
+      outline: none;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.5px;
+    }
+
+    .card-desc {
+      font-size: 1.08rem;
+      color: #444;
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      color: #232526;
+      gap: 0.5rem;
+    }
+
+    li::before {
+      content: "✔";
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-right: 0.3rem;
+      aria-hidden: true;
+    }
+
+    .bonus {
+      font-weight: 600;
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid var(--accent);
+      box-shadow: 0 0 8px rgba(108,99,255,0.08);
+      margin-top: 0.5rem;
+    }
+
+    footer {
+      background: var(--footer-bg);
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 0.98rem;
+      color: var(--accent-light);
+      letter-spacing: 0.5px;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    }
+
+    /* Accessibility: Focus style for keyboard navigation */
+    .card:focus-within {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .user-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-top: 1.2rem;
+    }
+
+    .user-form label {
+      font-size: 0.98rem;
+      color: #232526;
+      margin-bottom: 0.2rem;
+      font-weight: 500;
+    }
+
+    .user-form input {
+      padding: 0.6rem 0.8rem;
+      border: 1px solid #e0e7ff;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #f7f8fa;
+      transition: border-color 0.2s;
+    }
+
+    .user-form input:focus {
+      border-color: #6c63ff;
+      outline: none;
+    }
+
+    .user-form button {
+      margin-top: 0.7rem;
+      padding: 0.7rem 0;
+      background: linear-gradient(90deg, #6c63ff, #48c6ef);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .user-form button:hover,
+    .user-form button:focus {
+      background: linear-gradient(90deg, #48c6ef, #6c63ff);
+    }
+
+    #theme-toggle {
+      margin-left: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent-light);
+      color: var(--accent);
+      cursor: pointer;
+      transition: background 0.2s;
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+    }
+
+    body.light-mode {
+      --primary-bg: linear-gradient(135deg, #f7f8fa, #e0e7ff);
+      --card-bg: #fff;
+      --accent: #232526;
+      --accent-light: #6c63ff;
+      --header-bg: #e0e7ff;
+      --footer-bg: #e0e7ff;
+      --text-main: #232526;
+      --text-light: #6c63ff;
+    }
+
+    body.light-mode header h1 {
+      background: linear-gradient(90deg, #232526, #6c63ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+
+    body.light-mode .bonus {
+      background: #f7f8fa;
+      color: #232526;
+      border-color: #6c63ff;
+    }
+
+    body.light-mode footer {
+      color: #232526;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.3rem;
+      }
+      .card {
+        padding: 1.2rem 0.7rem;
+        max-width: 98vw;
+      }
+      .card-title {
+        font-size: 1.05rem;
+      }
+      ul {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AI Career & Skill Development Advisor</h1>
+    <button id="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
+  </header>
+  <main>
+    <section class="card" tabindex="0" aria-label="AI Career & Skill Development Advisor">
+      <div class="card-title">Empowering Students for Future Success</div>
+      <div class="card-desc">
+        An intelligent agent guiding students to discover their strengths, plan their careers, and build essential skills.
+      </div>
+      <ul>
+        <li>Analyzes interests & strengths</li>
+        <li>Recommends career paths and skill-building courses</li>
+        <li>Tracks progress toward career goals</li>
+      </ul>
+      <div class="bonus">
+        Bonus: Matches students with internship opportunities
+      </div>
+
+      <form class="user-form" autocomplete="on" aria-label="User Details" id="user-form">
+        <h2 style="font-size:1.1rem;color:#6c63ff;margin-bottom:0.7rem;">Tell us about yourself</h2>
+        <div id="form-errors" style="color:#d32f2f;font-size:0.98rem;margin-bottom:0.5rem;"></div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required placeholder="Your Name" />
+
+        <label for="college">College</label>
+        <input type="text" id="college" name="college" required placeholder="Your College" />
+
+        <label for="skills">Skills</label>
+        <input type="text" id="skills" name="skills" placeholder="E.g. Python, Data Analysis" />
+
+        <label for="course">Course</label>
+        <input type="text" id="course" name="course" placeholder="Your Course" />
+
+        <button type="submit">Submit</button>
+      </form>
+      <button id="guest-login-btn" style="margin-top:1rem;padding:0.7rem 0;background:linear-gradient(90deg,#6c63ff,#48c6ef);color:#fff;font-size:1rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;transition:background 0.2s;">
+        Login as Guest
+      </button>
+      <div id="data-table-container" style="margin-top:2rem;"></div>
+    </section>
+
+    <!-- Separate Chat Panel -->
+    <section id="chat-panel" style="display:none;max-width:480px;width:100%;margin:2rem auto 0 auto;background:#fff;border-radius:18px;box-shadow:0 4px 32px rgba(44,62,80,0.12);padding:2rem;flex-direction:column;gap:1rem;">
+      <h2 style="color:#6c63ff;font-size:1.1rem;">Chat with AI Advisor</h2>
+      <div id="chat-box" style="background:#f7f8fa;border-radius:8px;padding:1rem;min-height:120px;max-height:200px;overflow-y:auto;color:#232526;"></div>
+      <form id="chat-form" style="display:flex;gap:0.5rem;">
+        <input type="text" id="chat-input" placeholder="Type your question..." style="flex:1;padding:0.6rem 0.8rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1rem;" autocomplete="off" required />
+        <button type="submit" style="padding:0.6rem 1.2rem;background:linear-gradient(90deg,#6c63ff,#48c6ef);color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;">Send</button>
+      </form>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 Code Blooded]\\
+    
+  </footer>
+  <script>
+  // Array to hold all user entries
+  const allEntries = [];
+
+  // Form validation and error messages
+  document.getElementById('user-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const errors = [];
+    const name = document.getElementById('name').value.trim();
+    const college = document.getElementById('college').value.trim();
+    const skills = document.getElementById('skills').value.trim();
+    const course = document.getElementById('course').value.trim();
+
+    if (!name) errors.push("Name is required.");
+    if (!college) errors.push("College is required.");
+
+    const errorDiv = document.getElementById('form-errors');
+    if (errors.length > 0) {
+      errorDiv.textContent = errors.join(' ');
+      return;
+    } else {
+      errorDiv.textContent = '';
+    }
+
+    // Send data to backend
+    try {
+      const response = await fetch('http://localhost:5000/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, college, skills, course })
+      });
+      const result = await response.json();
+      if (response.ok) {
+        alert('Your details have been saved to the backend!');
+        this.reset();
+        renderTable();
+        // Show chat panel after successful submit
+        document.getElementById('chat-panel').style.display = 'flex';
+        document.getElementById('chat-panel').scrollIntoView({ behavior: 'smooth' });
+      } else {
+        errorDiv.textContent = result.message || 'Error saving your details.';
+      }
+    } catch (err) {
+      errorDiv.textContent = 'Could not connect to backend.';
+    }
+  });
+
+  // Display submitted data in a table
+  function renderTable() {
+    fetch('http://localhost:5000/entries')
+      .then(response => response.json())
+      .then(allEntries => {
+        const container = document.getElementById('data-table-container');
+        if (!allEntries || allEntries.length === 0) {
+          container.innerHTML = '';
+          return;
+        }
+        let html = '<h3 style="color:#6c63ff;">Submitted Entries</h3><table style="width:100%;border-collapse:collapse;"><tr><th>Name</th><th>College</th><th>Skills</th><th>Course</th></tr>';
+        allEntries.forEach(entry => {
+          html += `<tr>
+            <td>${entry.Name}</td>
+            <td>${entry.College}</td>
+            <td>${entry.Skills}</td>
+            <td>${entry.Course}</td>
+          </tr>`;
+        });
+        html += '</table>';
+        container.innerHTML = html;
+      });
+  }
+
+  // Call renderTable() on page load
+  window.onload = renderTable;
+
+  // Theme toggle functionality
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle.addEventListener('click', function() {
+    document.body.classList.toggle('light-mode');
+    // Change icon
+    if (document.body.classList.contains('light-mode')) {
+      themeToggle.textContent = '🌚';
+    } else {
+      themeToggle.textContent = '🌙';
+    }
+  });
+
+  // Guest login button functionality
+  document.getElementById('guest-login-btn').addEventListener('click', function() {
+    document.getElementById('chat-panel').style.display = 'flex';
+    document.getElementById('chat-panel').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Chat functionality (real AI response from backend)
+  document.getElementById('chat-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const chatInput = document.getElementById('chat-input');
+    const chatBox = document.getElementById('chat-box');
+    const userMsg = chatInput.value.trim();
+    if (!userMsg) return;
+
+    // Display user message
+    chatBox.innerHTML += `<div style="margin-bottom:0.5rem;"><strong>You:</strong> ${userMsg}</div>`;
+    chatBox.innerHTML += `<div style="margin-bottom:0.5rem;color:#888;"><em>AI is typing...</em></div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    try {
+      const response = await fetch('http://localhost:5000/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMsg })
+      });
+      const data = await response.json();
+      chatBox.innerHTML = chatBox.innerHTML.replace(/<div style="margin-bottom:0.5rem;color:#888;"><em>AI is typing\.\.\.<\/em><\/div>/, '');
+      chatBox.innerHTML += `<div style="margin-bottom:0.5rem;"><strong>AI:</strong> ${data.reply}</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    } catch {
+      chatBox.innerHTML += `<div style="margin-bottom:0.5rem;"><strong>AI:</strong> Sorry, I couldn't process your request.</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    chatInput.value = '';
+  });
+</script>
+</body>
+</html>
